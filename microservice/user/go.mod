@@ -25,8 +25,6 @@ require (
 )
 
 require (
-	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
 	github.com/google/uuid v1.1.2 // indirect
 	github.com/nats-io/nats.go v1.9.1 // indirect
-	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 )

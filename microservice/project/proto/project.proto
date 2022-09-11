@@ -1,0 +1,165 @@
+syntax = "proto3";//proto版本号
+
+package project;
+
+option go_package="./;project";
+
+service ProjectService {
+  rpc CreateProject(CreateProjectRequest) returns (Response) {}
+  rpc DeleteProject(DeleteProjectRequest) returns (Response) {}
+  rpc GetProjectInfo(Request) returns (ProjectInfoResponse) {}
+  rpc CreateFolderFile(CreateFolderFileRequest) returns (Response) {}
+  rpc DeleteFolderFile(DeleteFolderFileRequest) returns (Response) {}
+  rpc CreateFolderMd(CreateFolderMdRequest) returns (Response) {}
+  rpc DeleteFolderMd(CreateFolderMdRequest) returns (Response) {}
+  rpc ListFolderFile(ListFolderFileRequest) returns (ListFolderFileResponse) {}
+  rpc ListFolderMd(ListFolderMdRequest) returns (ListFolderMdResponse) {}
+  rpc CreateDoc(CreateDocRequest) returns (Response) {}
+  rpc CreateFile(CreateFileRequest) returns (Response) {}
+  rpc EditDoc(EditDocRequest) returns (Response) {}
+  rpc ListDoc(ListDocRequest) returns (ListDocResponse) {}
+  rpc ListFile(ListFileRequest) returns (ListFileResponse) {}
+}
+
+
+message CreateProjectRequest {
+  string name = 1;
+  string intro =2;
+  uint32 team_id = 3;
+}
+
+message DeleteProjectRequest {
+  uint32 id = 1;
+}
+
+message ProjectInfoResponse {
+  repeated Project list = 1;
+}
+
+message CreateFolderFileRequest {
+  string name = 1;
+  uint32 creator_id = 2;
+  uint32 project_id = 3;
+}
+
+message DeleteFolderFileRequest {
+  uint32 id = 1;
+}
+
+message CreateFolderMdRequest {
+  string name = 1;
+  uint32 creator_id = 2;
+  uint32 project_id = 3;
+}
+
+message DeleteFolderMdRequest {
+  uint32 id = 1;
+}
+
+message ListFolderFileRequest {
+  uint32 id = 1;
+}
+
+message ListFolderFileResponse {
+  repeated FolderFile list = 1;
+}
+
+message ListFolderMdRequest {
+  uint32 id = 1;
+}
+
+message ListFolderMdResponse {
+  repeated FolderMd list = 1;
+}
+
+message CreateDocRequest {
+    string filename = 1;
+    string content = 2;
+    uint32 project_id = 3;
+    uint32 creator_id = 4;
+}
+
+message CreateFileRequest {
+  string url = 1;
+  string filename = 2;
+  string real_name = 3;
+  uint32 creator_id = 5;
+  uint32 project_id = 6;
+}
+
+message EditDocRequest {
+  uint32 id = 1;
+  string filename = 2;
+  uint32 editor_id = 4;
+}
+
+message ListDocRequest {
+  uint32 id = 1;
+}
+
+message ListDocResponse {
+  repeated Doc list = 1;
+}
+
+message ListFileRequest {
+  uint32 id = 1;
+}
+
+message ListFileResponse {
+  repeated File list = 1;
+}
+
+message Request{}
+
+message Response{}
+
+message Project {
+  uint32 id = 1;
+  string name = 2;
+  string intro = 3;
+  string time = 4;
+  uint32 count = 5;
+  uint32 team_id = 6;
+}
+
+//文档
+message Doc {
+  uint32 id = 1;
+  string filename = 2;
+  string content = 3;
+  uint32 editor_id = 4;
+  uint32 creator_id = 5;
+  uint32 project_id = 6;
+  string create_time = 7;
+  string delete_time = 8;
+}
+
+//文件
+message File {
+  uint32 id = 1;
+  string url = 2;
+  string filename = 3;
+  string real_name = 4;
+  uint32 creator_id = 5;
+  uint32 project_id = 6;
+  string create_time = 7;
+  string delete_time = 8;
+}
+
+//文件-文件夹
+message FolderFile {
+  uint32 id = 1;
+  string name = 2;
+  string create_time = 3;
+  uint32 create_id = 4;
+  uint32 project_id = 5;
+}
+
+//文档-文件夹
+message FolderMd {
+  uint32 id = 1;
+  string name = 2;
+  string create_time = 3;
+  uint32 create_id = 4;
+  uint32 project_id = 5;
+}
