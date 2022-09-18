@@ -17,4 +17,9 @@ require (
 	workbench v0.0.0-00010101000000-000000000000
 )
 
-require github.com/dgrijalva/jwt-go v3.2.0+incompatible
+require (
+	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
+	google.golang.org/protobuf v1.28.0
+)

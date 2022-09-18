@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package status;
+
+option go_package="./;status";
+
+service StatusService {
+  rpc CreateStatus(CreateStatusRequest) returns (Response) {}
+  rpc GetAllStatus(Request) returns (AllStatusInfoResponse) {}
+  rpc GetSpecificStatusInfo(GetInfoRequest) returns (SingleInfoResponse) {}
+  rpc LikeStatus(LikeRequest) returns (Response) {}
+  rpc CancelLikeStatus(CancelLikeRequest) returns (Response) {}
+  rpc comment(CommentRequest) returns (Response) {}
+}
+
+message CreateStatusRequest {
+  string content = 1;
+  string title = 2;    
+  uint32 UserId = 3;     
+}
+
+message AllStatusInfoResponse {
+  repeated Status list = 1;
+}
+
+message GetInfoRequest {
+  uint32 id = 1;
+}
+
+message SingleInfoResponse {
+  Status single_info = 1;
+}
+
+message LikeRequest {
+  uint32 id = 1;
+}
+
+message CancelLikeRequest {
+   uint32 id = 1;
+}
+
+message CommentRequest {
+  string content = 1;
+  uint32 UserId  = 2;
+}
+
+message Request {}
+
+message Response {}
+
+
+message Status {
+  uint32 id = 1;
+  string content = 2;
+  string title = 3;
+  string time = 4;
+  string like = 5;
+  string comment = 6;
+  uint32 UserId = 7;
+}
+

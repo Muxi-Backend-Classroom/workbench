@@ -5,57 +5,142 @@ package status;
 option go_package="./;status";
 
 service StatusService {
-  rpc CreateStatus(CreateStatusRequest) returns (Response) {}
-  rpc GetAllStatus(Request) returns (AllStatusInfoResponse) {}
-  rpc GetSpecificStatusInfo(GetInfoRequest) returns (SingleInfoResponse) {}
-  rpc LikeStatus(LikeRequest) returns (Response) {}
-  rpc CancelLikeStatus(CancelLikeRequest) returns (Response) {}
-  rpc comment(CommentRequest) returns (Response) {}
+  rpc Get(GetRequest) returns (GetResponse) {}
+  rpc List(ListRequest) returns (ListResponse) {}
+  rpc Create(CreateRequest) returns (IdResponse) {}
+  rpc Update(UpdateRequest) returns (Response) {}
+  rpc Delete(GetRequest) returns (Response) {}
+  rpc Like(LikeRequest) returns (Response) {}
+  rpc CreateComment(CreateCommentRequest) returns (Response) {}
+  rpc UpdateComment(UpdateCommentRequest) returns (Response) {}
+  rpc ListComment(CommentListRequest) returns (CommentListResponse) {}
+  rpc DeleteComment(DeleteCommentRequest) returns (Response) {}
+  rpc Search(SearchRequest) returns (SearchResponse) {}
 }
 
-message CreateStatusRequest {
-  string content = 1;
-  string title = 2;    
-  uint32 UserId = 3;     
+message GetRequest {
+  uint32 id = 1;
+  uint32 uid = 2;
 }
 
-message AllStatusInfoResponse {
-  repeated Status list = 1;
-}
-
-message GetInfoRequest {
+message IdResponse {
   uint32 id = 1;
 }
 
-message SingleInfoResponse {
-  Status single_info = 1;
+message GetResponse {
+  Status status = 1;
+}
+
+message CommentListRequest {
+  uint32 last_id = 1;
+  uint32 offset = 2;
+  uint32 limit = 3;
+  uint32 status_id = 5;
+}
+
+message ListRequest {
+  uint32 last_id = 1;
+  uint32 offset = 2;
+  uint32 limit = 3;
+  uint32 group = 4;
+  uint32 uid = 5;
+  uint32 team = 6;
+  uint32 user_id = 7;
+}
+
+message ListResponse {
+  uint32 count = 1;
+  repeated Status list = 2;
+}
+
+message CommentListResponse {
+  uint32 count = 1;
+  repeated Comment list = 2;
+}
+
+message Response {}
+
+message CreateRequest {
+  string title = 2;
+  string content = 3;
+  uint32 user_id = 4;
+}
+
+message CreateCommentRequest {
+  string content = 1;
+  uint32 user_id = 2;
+  uint32 target_id = 3;
+  uint32 kind = 4;
+}
+
+message UpdateCommentRequest {
+  uint32 comment_id = 1;
+  uint32 user_id = 2;
+  uint32 kind = 3;
+  string content = 4;
+}
+
+message DeleteCommentRequest{
+  uint32 user_id = 1;
+  uint32 comment_id = 2;
+  uint32 kind = 3;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  string title = 2;
+  string content = 3;
+  uint32 user_id = 4;
 }
 
 message LikeRequest {
   uint32 id = 1;
+  uint32 user_id = 2;
+  bool   liked = 3;
 }
-
-message CancelLikeRequest {
-   uint32 id = 1;
-}
-
-message CommentRequest {
-  string content = 1;
-  uint32 UserId  = 2;
-}
-
-message Request {}
-
-message Response {}
-
 
 message Status {
   uint32 id = 1;
-  string content = 2;
-  string title = 3;
-  string time = 4;
-  string like = 5;
-  string comment = 6;
-  uint32 UserId = 7;
+  string title = 2;
+  string content = 3;
+  uint32 user_id = 4;
+  string time = 5;
+  string avatar = 6;
+  string user_name = 7;
+  bool   liked = 8;
+  uint32 comment = 9; //uint32?
+  uint32 like = 10;
 }
 
+message Comment {
+  uint32 id = 1;
+  string content = 2;
+  uint32 kind = 3;
+  uint32 user_id = 4;
+  string time = 5;
+  string avatar = 6;
+  string user_name = 7;
+}
+
+message SearchRequest {
+  uint32 group_id = 1;
+  string keyword = 2;
+  string user_name = 3;
+  bool pagination = 4;
+  uint32 offset = 5;
+  uint32 limit = 6;
+  uint32 last_id = 7;
+}
+
+message SearchResult {
+  uint32 id = 1;
+  string title = 2;
+  string content = 3;
+  string user_name = 4;
+  string time = 5;
+}
+
+message SearchResponse {
+  repeated SearchResult list = 1;
+  uint32 count = 2;
+}

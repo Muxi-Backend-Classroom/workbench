@@ -40,6 +40,9 @@ var (
 
 	// user
 	ErrUserNotExisted = &Errno{Code: 20101, Message: "User not existed"}
+
+	//status
+	ErrstatusNotExisted = &Errno{Code: 20101, Message: "Status not existed"}
 )
 
 type Errno struct {
