@@ -20,13 +20,8 @@ require (
 	github.com/satori/go.uuid v1.2.0
 	github.com/smartystreets/goconvey v1.7.2
 	github.com/spf13/viper v1.12.0
-	golang.org/x/net v0.0.0-20220826154423-83b083e8dc8b
+	golang.org/x/net v0.0.0-20220907135653-1e95f45603a7
 	workbench v0.0.0-00010101000000-000000000000
 )
 
-require (
-	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
-	github.com/google/uuid v1.1.2 // indirect
-	github.com/nats-io/nats.go v1.9.1 // indirect
-	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
-)
+require github.com/nats-io/nats.go v1.9.1 // indirect
