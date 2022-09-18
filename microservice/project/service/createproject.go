@@ -26,7 +26,7 @@ func CreateProject(info *CreateInfo) error {
 }
 
 // CreateProject ... 创建项目
-func (s *ProjectService) CreateProject(ctx context.Context, req *pb.CreateProjectRequest, resp *pb.Response) error {
+func (s *ProjectService) CreateProject(ctx context.Context, req *pb.CreateProjectRequest, resp *pb.IdResponse) error {
 	info := &CreateInfo{
 		Name:      req.Name,
 		Intro:     req.Intro,
@@ -36,5 +36,11 @@ func (s *ProjectService) CreateProject(ctx context.Context, req *pb.CreateProjec
 	if err := CreateProject(info); err != nil {
 		return errno.ServerErr(errno.ErrDatabase, err.Error())
 	}
+	project := &dao.ProjectModel{}
+	var err error
+	if project, err = dao.GetProjectByName(info.Name); err != nil {
+		return errno.ServerErr(errno.ErrDatabase, err.Error())
+	}
+	resp.Id = uint32(project.ID)
 	return nil
 }
