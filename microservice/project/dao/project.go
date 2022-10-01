@@ -47,6 +47,7 @@ func GetProjectByName(name string) (*ProjectModel, error) {
 	return project, nil
 }
 
+//将要删除的project的re置为1
 func DeleteProject(id uint32) error {
 	if err := model.DB.Self.Table("projects").Where("id = ?", id).Delete(&ProjectModel{}); err != nil {
 		return err.Error
@@ -59,8 +60,8 @@ func ListProject(offset, limit, lastId uint32) ([]*ProjectModel, error) {
 		limit = constvar.DefaultLimit
 	}
 
-	list := make([]*ProjectModel, 0)
-
+	//list := make([]*ProjectModel, 0)
+	var list []*ProjectModel
 	query := model.DB.Self.Table("projects").Offset(offset).Limit(limit)
 
 	if lastId != 0 {
