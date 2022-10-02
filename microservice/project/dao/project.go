@@ -74,3 +74,63 @@ func ListProject(offset, limit, lastId uint32) ([]*ProjectModel, error) {
 
 	return list, nil
 }
+
+func ListTrashbinForDoc(offset, limit, project_id uint32) ([]*DocModel, error) {
+	if limit == 0 {
+		limit = constvar.DefaultLimit
+	}
+
+	var list []*DocModel
+	query := model.DB.Self.Table("docs").Where("re = ? and project_id = ?", 0, project_id).Offset(offset).Limit(limit)
+
+	if err := query.Scan(&list).Error; err != nil {
+		return nil, err
+	}
+
+	return list, nil
+}
+
+func ListTrashbinForFile(offset, limit, project_id uint32) ([]*FileModel, error) {
+	if limit == 0 {
+		limit = constvar.DefaultLimit
+	}
+
+	var list []*FileModel
+	query := model.DB.Self.Table("files").Where("re = ? and project_id = ?", 0, project_id).Offset(offset).Limit(limit)
+
+	if err := query.Scan(&list).Error; err != nil {
+		return nil, err
+	}
+
+	return list, nil
+}
+
+func ListTrashbinForMdFolder(offset, limit, project_id uint32) ([]*FolderForMdModel, error) {
+	if limit == 0 {
+		limit = constvar.DefaultLimit
+	}
+
+	var list []*FolderForMdModel
+	query := model.DB.Self.Table("foldersformds").Where("re = ? and project_id = ?", 0, project_id).Offset(offset).Limit(limit)
+
+	if err := query.Scan(&list).Error; err != nil {
+		return nil, err
+	}
+
+	return list, nil
+}
+
+func ListTrashbinForFileFolder(offset, limit, project_id uint32) ([]*FolderForFileModel, error) {
+	if limit == 0 {
+		limit = constvar.DefaultLimit
+	}
+
+	var list []*FolderForFileModel
+	query := model.DB.Self.Table("foldersforfiles").Where("re = ? and project_id = ?", 0, project_id).Offset(offset).Limit(limit)
+
+	if err := query.Scan(&list).Error; err != nil {
+		return nil, err
+	}
+
+	return list, nil
+}
