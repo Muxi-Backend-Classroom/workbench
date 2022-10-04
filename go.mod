@@ -17,4 +17,7 @@ require (
 	workbench v0.0.0-00010101000000-000000000000
 )
 
-require github.com/dgrijalva/jwt-go v3.2.0+incompatible
+require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/garyburd/redigo v1.6.4 // indirect
+)
