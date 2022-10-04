@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package team;
+
+option go_package="./;team";
+
+service TeamService {
+  rpc GetApplyLink(GetApplyLinkRequest) returns (GetApplyLinkResponse) {}
+  rpc Apply(ApplyRequest) returns (Response) {}
+  rpc GetApplys(Request) returns (ApplysResponse) {}
+  rpc ConfirmApply(ConfirmApplyRequest) returns(Response) {}
+  rpc NewTeam(NewTeamRequest) returns (Response) {}
+  rpc DeleteTeam(DeleteTeamRequest) returns (Response) {}
+  rpc UpdateTeam(UpdateTeamRequest) returns (Response) {}
+  rpc NewGroup(NewGroupRequest) returns (Response) {}
+  rpc DeleteGroup(DeleteGroupRequest) returns (Response) {}
+  rpc UpdateGroup(UpdateGroupRequest) returns (Response) {}
+}
+
+message GetApplyLinkRequest {
+  uint32 user_id=1;
+  uint32 group_id=2;
+}
+
+message NewTeamRequest {
+  string name=1;
+  uint32 user_id=2;
+}
+
+message DeleteTeamRequest {
+  uint32 id=1;
+  uint32 user_id=2;
+}
+
+message UpdateTeamRequest{
+  uint32 id=1;
+  uint32 user_id=2;
+  string name=3;
+}
+
+message NewGroupRequest {
+  string name=1;
+  uint32 user_id=2;
+}
+
+message  DeleteGroupRequest {
+  uint32 id=1;
+  uint32 user_id=2;
+}
+
+message UpdateGroupRequest{
+  uint32 id=1;
+  uint32 user_id=2;
+  string name=3;
+}
+
+
+message ConfirmApplyRequest {
+  uint32 id=1;
+  string url=2;
+}
+
+message ApplysResponse {
+  repeated Apply Applys=1;
+}
+
+message GetApplyLinkResponse{
+  string link=1;
+}
+message Team {
+  uint32 id = 1;
+  string name = 2;
+  uint32 count = 3;
+  string time = 4;
+  string creator = 5;
+}
+
+message ApplyRequest {
+  uint32 id = 1;
+  uint32 user_id = 2;
+}
+
+
+message Request {}
+
+message Response {}
+
+message Apply {
+  uint32 id=1;
+  uint32 user_id=2;
+}
